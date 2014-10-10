@@ -1,0 +1,18 @@
+Sep 21, 2014 3:58:25 AM server.MultiThreadedTCPServer run() method
+FINER: ENTRY
+Sep 21, 2014 3:58:25 AM server.MultiThreadedTCPServer openServerSocket()
+FINER: ENTRY
+Sep 21, 2014 3:58:25 AM server.MultiThreadedTCPServer openServerSocket
+FINER: RETURN
+Sep 21, 2014 3:58:25 AM server.MultiThreadedTCPServer run
+INFO: Server started at port8,000
+Sep 21, 2014 3:58:36 AM server.ClientThread run()
+FINER: ENTRY
+Sep 21, 2014 3:58:36 AM server.ClientThread run
+INFO: Connection from 127.0.0.1
+Sep 21, 2014 3:58:36 AM server.ClientThread$1 run
+INFO: Commands receivedifconfig
+Sep 21, 2014 3:58:36 AM server.ClientThread run
+INFO: Client has left
+Sep 21, 2014 3:58:36 AM server.ClientThread run()
+FINER: RETURN
