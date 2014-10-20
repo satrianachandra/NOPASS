@@ -53,7 +53,8 @@ public class ClientThread implements Runnable{
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        int result = Actions.fibonacciLoop(Integer.decode(fiboNumber));
+                        //int result = Actions.fibonacciLoop(Integer.decode(fiboNumber));
+                        int result = Actions.fibonacciLoop(100000);
                         printStream.println(result);
                         LOGGER.log(Level.INFO, "Agent Name: "+agentName+" Fibo result:" + result);
                     }
