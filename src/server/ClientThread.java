@@ -46,14 +46,16 @@ public class ClientThread implements Runnable{
             LOGGER.log(Level.INFO, "Connection from " + clientSocket.getInetAddress().getHostAddress());
             String inputLine;        
             while ((inputLine = input.readLine()) != null) {
-                final String commands = inputLine;
+                final String[] commands = inputLine.split("#"); //will comprise of number#agent's name
+                final String fiboNumber = commands[0];
+                final String agentName = commands[1];
                 
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        int result = Actions.fibonacciLoop(Integer.decode(commands));
+                        int result = Actions.fibonacciLoop(Integer.decode(fiboNumber));
                         printStream.println(result);
-                        LOGGER.log(Level.INFO, "Fibo result:" + result);
+                        LOGGER.log(Level.INFO, "Agent Name: "+agentName+" Fibo result:" + result);
                     }
                 }).start();                
             } 
