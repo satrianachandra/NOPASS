@@ -37,6 +37,9 @@ public class ClientThread implements Runnable{
     
     public void run() {
         LOGGER.entering(getClass().getName(), "run()");
+        long result = Actions.fibonacciLoop(100000);
+        LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+        /*
         try {
             InputStreamReader inputStreamReader  = new InputStreamReader(clientSocket.getInputStream());
             final BufferedReader input = new BufferedReader(inputStreamReader);
@@ -70,7 +73,7 @@ public class ClientThread implements Runnable{
             //report exception somewhere.
             e.printStackTrace();
         }
-    
+        */
         LOGGER.exiting(getClass().getName(), "run()");
     }
     
