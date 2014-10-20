@@ -43,10 +43,12 @@ public class MultiThreadedTCPServer implements Runnable{
         openServerSocket();
         LOGGER.log(Level.INFO, "Server started at port{0}", serverPort);
         
+        int threadNumber=0;
         while(! isStopped()){
             Socket clientSocket = null;
             try {
                 clientSocket = this.serverSocket.accept();
+                threadNumber++;
             } catch (IOException e) {
                 if(isStopped()) {
                     LOGGER.log(Level.INFO, "Server Stopped");
@@ -57,7 +59,7 @@ public class MultiThreadedTCPServer implements Runnable{
                     "Error accepting client connection", e);
             }
             this.threadPool.execute(new ClientThread(
-                    clientSocket, "Multithreaded Server"));
+                    clientSocket, "Multithreaded Server",threadNumber));
         }
         this.threadPool.shutdown();
         //System.out.println("Server Stopped.") ;

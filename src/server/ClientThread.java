@@ -25,20 +25,23 @@ public class ClientThread implements Runnable{
     
     protected Socket clientSocket = null;
     protected String serverText   = null;
+    private int threadNumber;
     
     private static final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
-    public ClientThread(Socket clientSocket, String serverText) {
+    public ClientThread(Socket clientSocket, String serverText,int threadNumber) {
         this.clientSocket = clientSocket;
         this.serverText   = serverText;
+        this.threadNumber = threadNumber;
     }
     
+    @Override
     public void run() {
         LOGGER.entering(getClass().getName(), "run()");
         long result = Actions.fibonacciLoop(100000);
-        LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+        LOGGER.log(Level.INFO, "Thread-"+threadNumber+"Fibo result:{0}", result);
         /*
         try {
             InputStreamReader inputStreamReader  = new InputStreamReader(clientSocket.getInputStream());
