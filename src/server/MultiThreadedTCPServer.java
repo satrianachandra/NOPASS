@@ -51,7 +51,7 @@ public class MultiThreadedTCPServer implements Runnable{
         
         
         while(! isStopped()){
-            Socket clientSocket = null;
+            final Socket clientSocket;
             try {
                 clientSocket = this.serverSocket.accept();
             } catch (IOException e) {
@@ -64,7 +64,7 @@ public class MultiThreadedTCPServer implements Runnable{
                     "Error accepting client connection", e);
             }
             this.threadPool.execute(new ClientThread(
-                    clientSocket, computation));
+                    clientSocket));
         }
         this.threadPool.shutdown();
         //System.out.println("Server Stopped.") ;

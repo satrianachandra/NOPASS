@@ -25,24 +25,25 @@ import java.util.logging.Logger;
 public class ClientThread implements Runnable{
     
     protected Socket clientSocket = null;
-    private Computation computation;
     
     private static final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
-    public ClientThread(Socket clientSocket, Computation computation) {
+    public ClientThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        this.computation = computation;
     }
     
     @Override
     public void run() {
         LOGGER.entering(getClass().getName(), "run()");
         try {
-            clientSocket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                clientSocket.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         /*
