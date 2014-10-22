@@ -18,7 +18,7 @@ public class Actions {
     }
     
     // Java program for Fibonacci number using Loop.
-    public static long fibonacciLoop(int number){
+    public static long fibonacciLoop(long number){
         if(number == 1 || number == 2){
             return 1;
         }
