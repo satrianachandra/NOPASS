@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.nio.channels.SocketChannel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,9 +32,9 @@ public class ClientThread implements Runnable{
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
-    public ClientThread(Socket clientSocket, Computation computation) {
-        this.clientSocket = clientSocket;
-        this.computation = computation;
+    public ClientThread(SocketChannel socketChannel) {
+       // this.clientSocket = clientSocket;
+       
     }
     
     @Override
@@ -55,7 +56,8 @@ public class ClientThread implements Runnable{
             }
         }).start();*/
         //computation.processNumber(1000000000L);
-        Computation.queue.add(1000000000L);
+        Computation.queue.offer(1000000000L);
+        
         LOGGER.exiting(getClass().getName(), "run()");
     }
     

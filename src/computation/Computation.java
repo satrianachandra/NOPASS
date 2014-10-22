@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class Computation implements Runnable{
     
-    public static BlockingQueue queue = new ArrayBlockingQueue(4096);
+    public static BlockingQueue queue = new LinkedBlockingQueue();
     
     private boolean stop = false;
     private static final Logger LOGGER =

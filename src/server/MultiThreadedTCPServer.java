@@ -7,8 +7,11 @@ package server;
 
 import computation.Computation;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -22,7 +25,8 @@ import logger.MyLogger;
 public class MultiThreadedTCPServer implements Runnable{
     
     protected int          serverPort   = 8080;
-    protected ServerSocket serverSocket = null;
+    //protected ServerSocket serverSocket = null;
+    ServerSocketChannel serverSocketChannel;
     protected boolean      isStopped    = false;
     protected Thread       runningThread= null;
     protected ExecutorService threadPool ;// Executors.newFixedThreadPool(30);
@@ -43,17 +47,17 @@ public class MultiThreadedTCPServer implements Runnable{
         synchronized(this){
             this.runningThread = Thread.currentThread();
         }
-        Computation computation = new Computation();
-        new Thread(computation).start();
+        
+        new Thread(new Computation()).start();
         
         openServerSocket();
         LOGGER.log(Level.INFO, "Server started at port{0}", serverPort);
         
-        int threadNumber=0;
+        
         while(! isStopped()){
-            Socket clientSocket = null;
+            SocketChannel socketChannel = null;
             try {
-                clientSocket = this.serverSocket.accept();
+                socketChannel = this.serverSocketChannel.accept();
             } catch (IOException e) {
                 if(isStopped()) {
                     LOGGER.log(Level.INFO, "Server Stopped");
@@ -63,8 +67,12 @@ public class MultiThreadedTCPServer implements Runnable{
                 throw new RuntimeException(
                     "Error accepting client connection", e);
             }
+            if (socketChannel!=null){
+            
+            }
+            
             this.threadPool.execute(new ClientThread(
-                    clientSocket, computation));
+                    socketChannel));
         }
         this.threadPool.shutdown();
         //System.out.println("Server Stopped.") ;
@@ -80,7 +88,7 @@ public class MultiThreadedTCPServer implements Runnable{
     public synchronized void stop(){
         this.isStopped = true;
         try {
-            this.serverSocket.close();
+            this.serverSocketChannel.close();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Cannon Open Port", new RuntimeException("Error"));
             throw new RuntimeException("Error closing server", e);
@@ -91,7 +99,8 @@ public class MultiThreadedTCPServer implements Runnable{
      private void openServerSocket() {
         LOGGER.entering(getClass().getName(), "openServerSocket()");
         try {
-            this.serverSocket = new ServerSocket(this.serverPort);
+            this.serverSocketChannel =ServerSocketChannel.open();
+            serverSocketChannel.socket().bind(new InetSocketAddress(this.serverPort));
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Cannon Open Port", new RuntimeException("Error"));
             throw new RuntimeException("Cannot open port "+serverPort, e);
