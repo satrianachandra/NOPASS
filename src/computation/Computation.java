@@ -22,12 +22,16 @@ public class Computation implements Runnable{
     private static final Logger LOGGER =
         Logger.getLogger(Computation.class.getName());
     
+    private final Object lock = new Object();
+    
     public Computation(){
         numbersToProcess = new ArrayList<>();
     }
     
-    public void processNumber(long number){
-        numbersToProcess.add(number);
+    public void processNumber(Long number){
+        synchronized (lock) {
+            numbersToProcess.add(number);
+        }
     }
     
     private long getFibonacci(long number){
@@ -47,16 +51,16 @@ public class Computation implements Runnable{
     @Override
     public void run() {
         while (!stop){          
-            int lastPos = numbersToProcess.size();
-            List<Long>removed = new ArrayList<>();
-            for (int i=0;i<lastPos;i++){
-                Long number = numbersToProcess.get(i);
-                Long result = getFibonacci(number);
-                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
-                removed.add(number);
+            synchronized (lock) {
+                int lastPos = numbersToProcess.size();
+                List<Long>removed = new ArrayList<>();
+                for (int i=0;i<lastPos;i++){
+                    Long number = numbersToProcess.get(i);
+                    Long result = getFibonacci(number);
+                    LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+                    removed.add(number);
+                }
             }
-            numbersToProcess.removeAll(removed);
-            
             /*
             Iterator<Long> iter = numbersToProcess.iterator();
             while (iter.hasNext()) {

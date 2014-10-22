@@ -51,10 +51,10 @@ public class ClientThread implements Runnable{
             @Override
             public void run() {
                 long result = Actions.fibonacciLoop(1000000000);
-                LOGGER.log(Level.INFO, "Thread-"+threadNumber+"Fibo result:{0}", result);
+                LOGGER.log(Level.INFO, "Thread-s"+threadNumber+"Fibo result:{0}", result);
             }
         }).start();*/
-        computation.processNumber(1000000000);
+        computation.processNumber(1000000000L);
         LOGGER.exiting(getClass().getName(), "run()");
     }
     
