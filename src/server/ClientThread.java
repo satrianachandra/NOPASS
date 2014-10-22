@@ -40,6 +40,11 @@ public class ClientThread implements Runnable{
     @Override
     public void run() {
         LOGGER.entering(getClass().getName(), "run()");
+        try {
+            clientSocket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
         new Thread(new Runnable() {
 
             @Override
@@ -48,46 +53,7 @@ public class ClientThread implements Runnable{
                 LOGGER.log(Level.INFO, "Thread-"+threadNumber+"Fibo result:{0}", result);
             }
         }).start();
-        try {
-            /*
-            try {
-            InputStreamReader inputStreamReader  = new InputStreamReader(clientSocket.getInputStream());
-            final BufferedReader input = new BufferedReader(inputStreamReader);
-            final PrintStream printStream = new PrintStream(clientSocket.getOutputStream(),true);
-            
-            //System.out.println("Connection from " + clientSocket.getInetAddress().getHostAddress());
-            LOGGER.log(Level.INFO, "Connection from " + clientSocket.getInetAddress().getHostAddress());
-            String inputLine;        
-            while ((inputLine = input.readLine()) != null) {
-            final String[] commands = inputLine.split("#"); //will comprise of number#agent's name
-            final String fiboNumber = commands[0];
-            final String agentName = commands[1]; 
-            
-            new Thread(new Runnable() {
-            @Override
-            public void run() {
-            //int result = Actions.fibonacciLoop(Integer.decode(fiboNumber));
-            int result = Actions.fibonacciLoop(100000);
-            printStream.println(result);
-            LOGGER.log(Level.INFO, "Agent Name: "+agentName+" Fibo result:" + result);
-            }
-            }).start();
-            }
-            LOGGER.log(Level.INFO, "Client has left");
-            
-            input.close();
-            printStream.close();
-            
-            
-            } catch (IOException e) {
-            //report exception somewhere.
-            e.printStackTrace();
-            }
-            */
-            clientSocket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         LOGGER.exiting(getClass().getName(), "run()");
     }
     
