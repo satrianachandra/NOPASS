@@ -8,6 +8,8 @@ package computation;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +19,8 @@ public class Computation implements Runnable{
     
     private boolean stop = false;
     private List<Long>numbersToProcess;
+    private static final Logger LOGGER =
+        Logger.getLogger(Computation.class.getName());
     
     public Computation(){
         numbersToProcess = new ArrayList<>();
@@ -49,7 +53,7 @@ public class Computation implements Runnable{
             while (iter.hasNext()) {
                 Long element = iter.next();
                 Long result = getFibonacci(element);
-                
+                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 iter.remove();
             }
             
