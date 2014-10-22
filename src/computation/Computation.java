@@ -8,8 +8,11 @@ package computation;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +22,8 @@ import java.util.logging.Logger;
  */
 public class Computation implements Runnable{
     
-    public static BlockingQueue queue = new ArrayBlockingQueue(4096);
+    //public static BlockingQueue queue = new LinkedBlockingQueue();
+    public static Queue<Long> queue = new ConcurrentLinkedQueue<Long>();
     
     private boolean stop = false;
     private static final Logger LOGGER =
@@ -49,14 +53,12 @@ public class Computation implements Runnable{
     @Override
     public void run() {
         while (!stop){          
-            Long number = null;
-            try {
-                number = (Long)queue.take();
+            Long number = queue.poll();
+            if (number!=null){
                 Long result = getFibonacci(number);
                 LOGGER.log(Level.INFO, "Fibo result:{0}", result);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Computation.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             
             
             /*

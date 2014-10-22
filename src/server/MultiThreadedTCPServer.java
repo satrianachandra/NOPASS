@@ -49,7 +49,7 @@ public class MultiThreadedTCPServer implements Runnable{
         openServerSocket();
         LOGGER.log(Level.INFO, "Server started at port{0}", serverPort);
         
-        int threadNumber=0;
+        
         while(! isStopped()){
             Socket clientSocket = null;
             try {

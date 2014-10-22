@@ -55,7 +55,7 @@ public class ClientThread implements Runnable{
             }
         }).start();*/
         //computation.processNumber(1000000000L);
-        Computation.queue.add(1000000000L);
+        Computation.queue.offer(1000000000L);
         LOGGER.exiting(getClass().getName(), "run()");
     }
     
