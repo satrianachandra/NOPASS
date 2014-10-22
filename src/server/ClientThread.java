@@ -40,8 +40,14 @@ public class ClientThread implements Runnable{
     @Override
     public void run() {
         LOGGER.entering(getClass().getName(), "run()");
-        long result = Actions.fibonacciLoop(100000000);
-        LOGGER.log(Level.INFO, "Thread-"+threadNumber+"Fibo result:{0}", result);
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                long result = Actions.fibonacciLoop(1000000000);
+                LOGGER.log(Level.INFO, "Thread-"+threadNumber+"Fibo result:{0}", result);
+            }
+        }).start();
         try {
             /*
             try {
