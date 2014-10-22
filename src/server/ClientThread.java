@@ -6,6 +6,7 @@
 package server;
 
 import computation.Actions;
+import computation.Computation;
 import computation.ShellExecution;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,17 +25,15 @@ import java.util.logging.Logger;
 public class ClientThread implements Runnable{
     
     protected Socket clientSocket = null;
-    protected String serverText   = null;
-    private int threadNumber;
+    private Computation computation;
     
     private static final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
-    public ClientThread(Socket clientSocket, String serverText,int threadNumber) {
+    public ClientThread(Socket clientSocket, Computation computation) {
         this.clientSocket = clientSocket;
-        this.serverText   = serverText;
-        this.threadNumber = threadNumber;
+        this.computation = computation;
     }
     
     @Override
@@ -45,6 +44,8 @@ public class ClientThread implements Runnable{
         } catch (IOException ex) {
             Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        /*
         new Thread(new Runnable() {
 
             @Override
@@ -52,8 +53,8 @@ public class ClientThread implements Runnable{
                 long result = Actions.fibonacciLoop(1000000000);
                 LOGGER.log(Level.INFO, "Thread-"+threadNumber+"Fibo result:{0}", result);
             }
-        }).start();
-        
+        }).start();*/
+        computation.processNumber(1000000000);
         LOGGER.exiting(getClass().getName(), "run()");
     }
     
