@@ -8,6 +8,8 @@ package computation;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,22 +19,18 @@ import java.util.logging.Logger;
  */
 public class Computation implements Runnable{
     
+    public static BlockingQueue queue = new ArrayBlockingQueue(4096);
+    
     private boolean stop = false;
-    private List<Long>numbersToProcess;
     private static final Logger LOGGER =
         Logger.getLogger(Computation.class.getName());
     
     private final Object lock = new Object();
     
     public Computation(){
-        numbersToProcess = new ArrayList<>();
+
     }
     
-    public void processNumber(Long number){
-        synchronized (lock) {
-            numbersToProcess.add(number);
-        }
-    }
     
     private long getFibonacci(long number){
         if(number == 1 || number == 2){
@@ -51,16 +49,16 @@ public class Computation implements Runnable{
     @Override
     public void run() {
         while (!stop){          
-            synchronized (lock) {
-                int lastPos = numbersToProcess.size();
-                List<Long>removed = new ArrayList<>();
-                for (int i=0;i<lastPos;i++){
-                    Long number = numbersToProcess.get(i);
-                    Long result = getFibonacci(number);
-                    LOGGER.log(Level.INFO, "Fibo result:{0}", result);
-                    removed.add(number);
-                }
+            Long number = null;
+            try {
+                number = (Long)queue.take();
+                Long result = getFibonacci(number);
+                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Computation.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            
             /*
             Iterator<Long> iter = numbersToProcess.iterator();
             while (iter.hasNext()) {

@@ -54,7 +54,8 @@ public class ClientThread implements Runnable{
                 LOGGER.log(Level.INFO, "Thread-s"+threadNumber+"Fibo result:{0}", result);
             }
         }).start();*/
-        computation.processNumber(1000000000L);
+        //computation.processNumber(1000000000L);
+        Computation.queue.add(1000000000L);
         LOGGER.exiting(getClass().getName(), "run()");
     }
     
