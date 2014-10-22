@@ -24,7 +24,6 @@ public class Computation implements Runnable{
     
     public Computation(){
         numbersToProcess = new ArrayList<>();
-        
     }
     
     public void processNumber(long number){
@@ -47,15 +46,25 @@ public class Computation implements Runnable{
 
     @Override
     public void run() {
-        while (!stop){
+        while (!stop){          
+            int lastPos = numbersToProcess.size();
+            List<Long>removed = new ArrayList<>();
+            for (int i=0;i<lastPos;i++){
+                Long number = numbersToProcess.get(i);
+                Long result = getFibonacci(number);
+                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+                removed.add(number);
+            }
+            numbersToProcess.removeAll(removed);
             
+            /*
             Iterator<Long> iter = numbersToProcess.iterator();
             while (iter.hasNext()) {
                 Long element = iter.next();
                 Long result = getFibonacci(element);
                 LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 iter.remove();
-            }
+            }*/
             
             /*
             List<Long> removed = new ArrayList<>();
