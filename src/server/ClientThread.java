@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 public class ClientThread implements Runnable{
     
     private Socket clientSocket = null;
+    private String inputLine;
     
     private final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
@@ -49,9 +50,17 @@ public class ClientThread implements Runnable{
             BufferedReader in = new BufferedReader(
         new InputStreamReader(clientSocket.getInputStream()));
         
-            String inputLine;
+            //String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                Computation.queue.offer(Long.decode(inputLine));
+                //Computation.queue.offer(Long.decode(inputLine));
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        long result = Actions.fibonacciLoop(Long.decode(inputLine));
+                        LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+                    }
+                }).start();
             }
             
         }catch(IOException ex){
