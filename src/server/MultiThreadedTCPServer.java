@@ -7,6 +7,7 @@ package server;
 
 import computation.Computation;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -44,8 +45,8 @@ public class MultiThreadedTCPServer implements Runnable{
         synchronized(this){
             this.runningThread = Thread.currentThread();
         }
-        Computation computation = new Computation();
-        new Thread(computation).start();
+        //Computation computation = new Computation();
+        //new Thread(computation).start();
         
         openServerSocket();
         LOGGER.log(Level.INFO, "Server started at port{0}", serverPort);
@@ -97,8 +98,9 @@ public class MultiThreadedTCPServer implements Runnable{
      private void openServerSocket() {
         LOGGER.entering(getClass().getName(), "openServerSocket()");
         try {
-            this.serverSocket = new ServerSocket(this.serverPort);
+            this.serverSocket = new ServerSocket();
             this.serverSocket.setReuseAddress(true);
+            this.serverSocket.bind(new InetSocketAddress(this.serverPort));
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Cannon Open Port", new RuntimeException("Error"));
             throw new RuntimeException("Cannot open port "+serverPort, e);

@@ -52,7 +52,9 @@ public class ClientThread implements Runnable{
         
             //String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                Computation.queue.offer(Long.decode(inputLine));
+                long result = Actions.fibonacciLoop(Long.decode(inputLine));
+                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+                //Computation.queue.offer(Long.decode(inputLine));
                 /*
                 new Thread(new Runnable() {
 
