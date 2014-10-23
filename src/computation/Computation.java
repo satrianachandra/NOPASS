@@ -24,8 +24,8 @@ import java.util.logging.Logger;
  */
 public class Computation implements Runnable{
     
-    private int sizeOfThreadPool=500;
-    private ExecutorService threadPool ;
+    private static int sizeOfThreadPool=500;
+    private static ExecutorService threadPool ;
     
     //public static BlockingQueue queue = new LinkedBlockingQueue();
     public static Queue<Long> queue = new ConcurrentLinkedQueue<Long>();
@@ -37,7 +37,7 @@ public class Computation implements Runnable{
     private final Object lock = new Object();
     
     public Computation(){
-        this.threadPool = Executors.newFixedThreadPool(this.sizeOfThreadPool);
+        Computation.threadPool = Executors.newFixedThreadPool(Computation.sizeOfThreadPool);
     }
     
     
@@ -60,7 +60,7 @@ public class Computation implements Runnable{
         while (!stop){          
             final Long number = queue.poll();
             if (number!=null){
-                this.threadPool.execute(new Runnable() {
+                Computation.threadPool.execute(new Runnable() {
 
                     @Override
                     public void run() {
