@@ -34,11 +34,11 @@ public class ClientThread implements Runnable{
     
     public ClientThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        try {
-            this.clientSocket.setSoTimeout(500);
-        } catch (SocketException ex) {
-            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //try {
+            //this.clientSocket.setSoTimeout(5000);
+        //} catch (SocketException ex) {
+        //    Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+        //}
     }
     
     @Override

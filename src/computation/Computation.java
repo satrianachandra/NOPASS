@@ -31,7 +31,7 @@ public class Computation implements Runnable{
     public static Queue<Long> queue = new ConcurrentLinkedQueue<Long>();
     
     private boolean stop = false;
-    private static final Logger LOGGER =
+    private final Logger LOGGER =
         Logger.getLogger(Computation.class.getName());
     
     private final Object lock = new Object();
