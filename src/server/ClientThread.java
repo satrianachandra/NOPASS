@@ -52,7 +52,8 @@ public class ClientThread implements Runnable{
         
             //String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                //Computation.queue.offer(Long.decode(inputLine));
+                Computation.queue.offer(Long.decode(inputLine));
+                /*
                 new Thread(new Runnable() {
 
                     @Override
@@ -61,6 +62,7 @@ public class ClientThread implements Runnable{
                         LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                     }
                 }).start();
+                */
             }
             
         }catch(IOException ex){

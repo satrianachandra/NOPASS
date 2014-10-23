@@ -35,7 +35,8 @@ public class MultiThreadedTCPServer implements Runnable{
     public MultiThreadedTCPServer(int port, int sizeOfThreadPool){
         this.serverPort = port;
         this.sizeOfThreadPool = sizeOfThreadPool;
-        this.threadPool= Executors.newFixedThreadPool(sizeOfThreadPool);
+        //this.threadPool= Executors.newFixedThreadPool(sizeOfThreadPool);
+        this.threadPool= Executors.newCachedThreadPool();
     }
 
     public void run(){

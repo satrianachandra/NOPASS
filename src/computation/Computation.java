@@ -34,10 +34,10 @@ public class Computation implements Runnable{
     private final Logger LOGGER =
         Logger.getLogger(Computation.class.getName());
     
-    private final Object lock = new Object();
     
     public Computation(){
-        Computation.threadPool = Executors.newFixedThreadPool(Computation.sizeOfThreadPool);
+        //Computation.threadPool = Executors.newFixedThreadPool(Computation.sizeOfThreadPool);
+        Computation.threadPool = Executors.newCachedThreadPool();
     }
     
     
