@@ -43,8 +43,8 @@ public class MultiThreadedTCPServer implements Runnable{
         synchronized(this){
             this.runningThread = Thread.currentThread();
         }
-        //Computation computation = new Computation();
-        //new Thread(computation).start();
+        Computation computation = new Computation();
+        new Thread(computation).start();
         
         openServerSocket();
         LOGGER.log(Level.INFO, "Server started at port{0}", serverPort);
