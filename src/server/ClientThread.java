@@ -38,9 +38,23 @@ public class ClientThread implements Runnable{
     @Override
     public void run() {
         LOGGER.entering(getClass().getName(), "run()");
+        
+        
+        
         try {
+            BufferedReader in = new BufferedReader(
+        new InputStreamReader(clientSocket.getInputStream()));
+        
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                Computation.queue.offer(Long.decode(inputLine));
+            }
+            
+        }catch(IOException ex){
+            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
             try {
+                //in.close();
                 clientSocket.close();
             } catch (IOException ex) {
                 Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +71,7 @@ public class ClientThread implements Runnable{
             }
         }).start();*/
         //computation.processNumber(1000000000L);
-        Computation.queue.offer(1000000000L);
+        //Computation.queue.offer(1000000000L);
         LOGGER.exiting(getClass().getName(), "run()");
     }
     
