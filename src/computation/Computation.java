@@ -24,8 +24,8 @@ import java.util.logging.Logger;
  */
 public class Computation implements Runnable{
     
-    //private static int sizeOfThreadPool=1000;
-    //private static ExecutorService threadPool ;
+    private static int sizeOfThreadPool=1000;
+    private static ExecutorService threadPool ;
     
     //public static BlockingQueue queue = new LinkedBlockingQueue();
     public static Queue<Long> queue = new ConcurrentLinkedQueue<Long>();
@@ -37,7 +37,7 @@ public class Computation implements Runnable{
     private final Object lock = new Object();
     
     public Computation(){
-        //Computation.threadPool = Executors.newFixedThreadPool(Computation.sizeOfThreadPool);
+        Computation.threadPool = Executors.newFixedThreadPool(Computation.sizeOfThreadPool);
     }
     
     
@@ -59,8 +59,19 @@ public class Computation implements Runnable{
     public void run() {
         while (!stop){          
             final Long number = queue.poll();
-            Long result = getFibonacci(number);
-            LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+            if (number!=null){
+                Computation.threadPool.execute(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Long result = getFibonacci(number);
+                        LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+                    }
+                });
+                
+            }
+
+            
             
             /*
             Iterator<Long> iter = numbersToProcess.iterator();
