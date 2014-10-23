@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class Computation implements Runnable{
     
-    private static int sizeOfThreadPool=1000;
+    private static int sizeOfThreadPool=4000;
     private static ExecutorService threadPool ;
     
     //public static BlockingQueue queue = new LinkedBlockingQueue();
@@ -36,8 +36,8 @@ public class Computation implements Runnable{
     
     
     public Computation(){
-        //Computation.threadPool = Executors.newFixedThreadPool(Computation.sizeOfThreadPool);
-        Computation.threadPool = Executors.newCachedThreadPool();
+        Computation.threadPool = Executors.newFixedThreadPool(Computation.sizeOfThreadPool);
+        //Computation.threadPool = Executors.newCachedThreadPool();
     }
     
     
