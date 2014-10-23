@@ -25,16 +25,14 @@ import java.util.logging.Logger;
  */
 public class ClientThread implements Runnable{
     
-    protected Socket clientSocket = null;
-    private ExecutorService threadPool;
+    private Socket clientSocket = null;
     
     private static final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
-    public ClientThread(Socket clientSocket, ExecutorService tp) {
+    public ClientThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        this.threadPool = tp;
     }
     
     @Override
@@ -48,14 +46,7 @@ public class ClientThread implements Runnable{
                 Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        threadPool.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                long result = Actions.fibonacciLoop(1000000000);
-                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
-            }
-        });
+        
         /*
         new Thread(new Runnable() {
 
@@ -66,7 +57,7 @@ public class ClientThread implements Runnable{
             }
         }).start();*/
         //computation.processNumber(1000000000L);
-        //Computation.queue.offer(1000000000L);
+        Computation.queue.offer(1000000000L);
         LOGGER.exiting(getClass().getName(), "run()");
     }
     

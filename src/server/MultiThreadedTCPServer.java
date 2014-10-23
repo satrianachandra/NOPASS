@@ -21,10 +21,10 @@ import logger.MyLogger;
  */
 public class MultiThreadedTCPServer implements Runnable{
     
-    protected int          serverPort   = 8080;
-    protected ServerSocket serverSocket = null;
-    protected boolean      isStopped    = false;
-    protected Thread       runningThread= null;
+    private int          serverPort   = 8080;
+    private ServerSocket serverSocket = null;
+    private boolean      isStopped    = false;
+    private Thread       runningThread= null;
     private ExecutorService threadPool ;// Executors.newFixedThreadPool(30);
     private int sizeOfThreadPool = 10;
     private static final Logger LOGGER =
@@ -64,7 +64,7 @@ public class MultiThreadedTCPServer implements Runnable{
                     "Error accepting client connection", e);
             }
             this.threadPool.execute(new ClientThread(
-                    clientSocket,this.threadPool));
+                    clientSocket));
         }
         this.threadPool.shutdown();
         //System.out.println("Server Stopped.") ;
@@ -92,6 +92,7 @@ public class MultiThreadedTCPServer implements Runnable{
         LOGGER.entering(getClass().getName(), "openServerSocket()");
         try {
             this.serverSocket = new ServerSocket(this.serverPort);
+            this.serverSocket.setReuseAddress(true);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Cannon Open Port", new RuntimeException("Error"));
             throw new RuntimeException("Cannot open port "+serverPort, e);
