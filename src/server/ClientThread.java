@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,19 +28,22 @@ public class ClientThread implements Runnable{
     
     private Socket clientSocket = null;
     
-    private static final Logger LOGGER =
+    private final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
     public ClientThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
+        try {
+            this.clientSocket.setSoTimeout(500);
+        } catch (SocketException ex) {
+            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override
     public void run() {
         LOGGER.entering(getClass().getName(), "run()");
-        
-        
         
         try {
             BufferedReader in = new BufferedReader(
