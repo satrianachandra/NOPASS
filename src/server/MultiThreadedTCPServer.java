@@ -120,13 +120,6 @@ public class MultiThreadedTCPServer implements Runnable{
         MultiThreadedTCPServer server = new MultiThreadedTCPServer(port,sizeOfThreadPool);
         new Thread(server).start();
         
-        try {
-            Thread.sleep(5*60*1*1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MultiThreadedTCPServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        LOGGER.log(Level.INFO, "stopping server");
-        server.stop();
     
                 
     }
