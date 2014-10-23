@@ -51,11 +51,11 @@ public class MultiThreadedTCPServer implements Runnable{
         
         
         while(! isStopped()){
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MultiThreadedTCPServer.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //try {
+            //    Thread.sleep(100);
+            //} catch (InterruptedException ex) {
+            //    Logger.getLogger(MultiThreadedTCPServer.class.getName()).log(Level.SEVERE, null, ex);
+            //}
             final Socket clientSocket;
             try {
                 clientSocket = this.serverSocket.accept();
@@ -125,13 +125,6 @@ public class MultiThreadedTCPServer implements Runnable{
         MultiThreadedTCPServer server = new MultiThreadedTCPServer(port,sizeOfThreadPool);
         new Thread(server).start();
         
-        try {
-            Thread.sleep(1*1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MultiThreadedTCPServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        LOGGER.log(Level.INFO, "stopping server");
-        server.stop();
     
                 
     }
