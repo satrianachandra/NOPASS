@@ -27,6 +27,7 @@ public class MultiThreadedTCPServer implements Runnable{
     private boolean      isStopped    = false;
     private Thread       runningThread= null;
     private ExecutorService threadPool ;// Executors.newFixedThreadPool(30);
+    private ExecutorService threadPoolFIbo; 
     private int sizeOfThreadPool = 10;
     private static final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
@@ -38,6 +39,7 @@ public class MultiThreadedTCPServer implements Runnable{
         this.sizeOfThreadPool = sizeOfThreadPool;
         this.threadPool= Executors.newFixedThreadPool(sizeOfThreadPool);
         //this.threadPool= Executors.newCachedThreadPool();
+        this.threadPoolFIbo =  Executors.newFixedThreadPool(2*sizeOfThreadPool);
     }
 
     public void run(){
@@ -62,7 +64,7 @@ public class MultiThreadedTCPServer implements Runnable{
             try {
                 //clientSocket = this.serverSocket.accept();
                 this.threadPool.execute(new ClientThread(
-                    this.serverSocket.accept()));
+                    this.serverSocket.accept(),this.threadPoolFIbo));
             } catch (IOException e) {
                 if(isStopped()) {
                     LOGGER.log(Level.INFO, "Server Stopped");
@@ -76,6 +78,7 @@ public class MultiThreadedTCPServer implements Runnable{
             //        clientSocket));
         }
         this.threadPool.shutdown();
+        this.threadPoolFIbo.shutdown();
         //System.out.println("Server Stopped.") ;
         LOGGER.log(Level.INFO, "Server Stopped");
         LOGGER.exiting(getClass().getName(), "Server thread stopped");

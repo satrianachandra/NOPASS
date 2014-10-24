@@ -28,13 +28,15 @@ public class ClientThread implements Runnable{
     
     private Socket clientSocket = null;
     private String inputLine;
+    private ExecutorService myThreadPool ;
     
     private final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
-    public ClientThread(Socket clientSocket) {
+    public ClientThread(Socket clientSocket,ExecutorService tPool) {
         this.clientSocket = clientSocket;
+        this.myThreadPool = tPool;
         //try {
             //this.clientSocket.setSoTimeout(5000);
         //} catch (SocketException ex) {
@@ -55,7 +57,16 @@ public class ClientThread implements Runnable{
                 //long result = Actions.fibonacciLoop(Long.decode(inputLine));
                 //LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 //Computation.queue.offer(Long.decode(inputLine));
+                myThreadPool.execute(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        long result = Actions.fibonacciLoop(Long.decode(inputLine));
+                        LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+                    }
+                });
                 
+                /*
                 new Thread(new Runnable() {
 
                     @Override
@@ -64,6 +75,7 @@ public class ClientThread implements Runnable{
                         LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                     }
                 }).start();
+                */
                 
             }
             
