@@ -57,6 +57,7 @@ public class ClientThread implements Runnable{
                 //long result = Actions.fibonacciLoop(Long.decode(inputLine));
                 //LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 //Computation.queue.offer(Long.decode(inputLine));
+                /*
                 myThreadPool.execute(new Runnable() {
 
                     @Override
@@ -65,7 +66,9 @@ public class ClientThread implements Runnable{
                         LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                     }
                 });
-                
+                */
+                long result = Actions.fibonacciLoop(Long.decode(inputLine));
+                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 /*
                 new Thread(new Runnable() {
 
