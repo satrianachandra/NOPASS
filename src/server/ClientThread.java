@@ -37,11 +37,11 @@ public class ClientThread implements Runnable{
     public ClientThread(Socket clientSocket,ExecutorService tPool) {
         this.clientSocket = clientSocket;
         this.myThreadPool = tPool;
-        //try {
-            //this.clientSocket.setSoTimeout(5000);
-        //} catch (SocketException ex) {
-        //    Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-        //}
+        try {
+            this.clientSocket.setSoTimeout(1000);
+        }catch (SocketException ex) {
+            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
         
     @Override
