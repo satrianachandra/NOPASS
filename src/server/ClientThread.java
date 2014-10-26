@@ -48,12 +48,12 @@ public class ClientThread implements Runnable{
     public void run() {
         //LOGGER.entering(getClass().getName(), "run()");
         
-        try {
-            BufferedReader in = new BufferedReader(
-        new InputStreamReader(clientSocket.getInputStream()));
+        //try {
+            //BufferedReader in = new BufferedReader(
+        //new InputStreamReader(clientSocket.getInputStream()));
         
             //String inputLine;
-            while ((inputLine = in.readLine()) != null) {
+            //while ((inputLine = in.readLine()) != null) {
                 //long result = Actions.fibonacciLoop(Long.decode(inputLine));
                 //LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 //Computation.queue.offer(Long.decode(inputLine));
@@ -67,7 +67,7 @@ public class ClientThread implements Runnable{
                     }
                 });
                 */
-                long result = Actions.fibonacciLoop(Long.decode(inputLine));
+                long result = Actions.fibonacciLoop(500000L);
                 //System.out.println("Fibo result:"+ result);
                 LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 /*
@@ -81,18 +81,18 @@ public class ClientThread implements Runnable{
                 }).start();
                 */
                 
-            }
+          //  }
             
-        }catch(IOException ex){
-            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+       // }catch(IOException ex){
+       //     Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+       // }finally{
             try {
                 //in.close();
                 clientSocket.close();
             } catch (IOException ex) {
                 Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        //}
         
         /*
         new Thread(new Runnable() {
