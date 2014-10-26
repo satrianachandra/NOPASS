@@ -121,13 +121,13 @@ public class MultiThreadedTCPServer implements Runnable{
                 LOGGER.log(Level.SEVERE, "Cannot Open file", ex);
         }
         
-        int sizeOfThreadPool=10;
+        int sizeOfTPool=10;
         if (args.length == 0){
             throw new IllegalArgumentException("Must specify a port!");
 	}else if (args.length>=2){
             String level = args[1];
             MyLogger.setLevel(Integer.decode(level));
-            sizeOfThreadPool = Integer.decode(args[2]);
+            sizeOfTPool = Integer.decode(args[2]);
         }
         
 	int port = Integer.parseInt(args[0]);
