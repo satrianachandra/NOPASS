@@ -105,7 +105,7 @@ public class MultiThreadedTCPServer implements Runnable{
         LOGGER.entering(getClass().getName(), "openServerSocket()");
         try {
             this.serverSocket = new ServerSocket();
-            //this.serverSocket.setReuseAddress(true);
+            this.serverSocket.setReuseAddress(true);
             this.serverSocket.bind(new InetSocketAddress(this.serverPort));
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Cannon Open Port", new RuntimeException("Error"));
