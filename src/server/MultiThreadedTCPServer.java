@@ -63,8 +63,9 @@ public class MultiThreadedTCPServer implements Runnable{
             //final Socket clientSocket;
             try {
                 //clientSocket = this.serverSocket.accept();
-                this.threadPool.execute(new ClientThread(
-                    this.serverSocket.accept(),this.threadPoolFIbo));
+                new Thread(new ClientThread(this.serverSocket.accept(), threadPool)).start();
+                //this.threadPool.execute(new ClientThread(
+                //    this.serverSocket.accept(),this.threadPoolFIbo));
             } catch (IOException e) {
                 if(isStopped()) {
                     LOGGER.log(Level.INFO, "Server Stopped");
