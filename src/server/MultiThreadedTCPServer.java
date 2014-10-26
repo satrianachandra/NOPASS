@@ -131,7 +131,7 @@ public class MultiThreadedTCPServer implements Runnable{
         }
         
 	int port = Integer.parseInt(args[0]);
-        MultiThreadedTCPServer server = new MultiThreadedTCPServer(port,250);
+        MultiThreadedTCPServer server = new MultiThreadedTCPServer(port,50);
         new Thread(server).start();
         
     
