@@ -60,12 +60,12 @@ public class MultiThreadedTCPServer implements Runnable{
             //} catch (InterruptedException ex) {
             //    Logger.getLogger(MultiThreadedTCPServer.class.getName()).log(Level.SEVERE, null, ex);
             //}
-            //final Socket clientSocket;
+            final Socket clientSocket;
             try {
-                //clientSocket = this.serverSocket.accept();
+                clientSocket = this.serverSocket.accept();
                 //new Thread(new ClientThread(this.serverSocket.accept(), threadPool)).start();
-                this.threadPool.execute(new ClientThread(
-                    this.serverSocket.accept()));
+                //this.threadPool.execute(new ClientThread(
+                //    this.serverSocket.accept()));
             } catch (IOException e) {
                 if(isStopped()) {
                     LOGGER.log(Level.INFO, "Server Stopped");
@@ -75,8 +75,8 @@ public class MultiThreadedTCPServer implements Runnable{
                 throw new RuntimeException(
                     "Error accepting client connection", e);
             }
-            //this.threadPool.execute(new ClientThread(
-            //        clientSocket));
+            this.threadPool.execute(new ClientThread(
+                    clientSocket));
         }
         this.threadPool.shutdown();
         //this.threadPoolFIbo.shutdown();
@@ -131,7 +131,7 @@ public class MultiThreadedTCPServer implements Runnable{
         }
         
 	int port = Integer.parseInt(args[0]);
-        MultiThreadedTCPServer server = new MultiThreadedTCPServer(8181,1000);
+        MultiThreadedTCPServer server = new MultiThreadedTCPServer(port,1000);
         new Thread(server).start();
         
     
