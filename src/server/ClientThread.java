@@ -30,7 +30,7 @@ public class ClientThread implements Runnable{
     private String inputLine;
     //private ExecutorService myThreadPool;
     
-    private final Logger LOGGER =
+    private static final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
@@ -38,7 +38,7 @@ public class ClientThread implements Runnable{
         this.clientSocket = clientSocket;
         //this.myThreadPool = tPool;
         try {
-            this.clientSocket.setSoTimeout(1000);
+            this.clientSocket.setSoTimeout(5000);
         }catch (SocketException ex) {
             Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
         }
