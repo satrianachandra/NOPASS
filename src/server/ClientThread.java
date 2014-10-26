@@ -37,11 +37,11 @@ public class ClientThread implements Runnable{
     public ClientThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
         //this.myThreadPool = tPool;
-        try {
-            this.clientSocket.setSoTimeout(5000);
-        }catch (SocketException ex) {
-            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //try {
+        //    this.clientSocket.setSoTimeout(5000);
+        //}catch (SocketException ex) {
+        //    Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+       // }
     }
         
     @Override
@@ -68,8 +68,8 @@ public class ClientThread implements Runnable{
                 });
                 */
                 long result = Actions.fibonacciLoop(Long.decode(inputLine));
-                System.out.println("Fibo result:"+ result);
-                //LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+                //System.out.println("Fibo result:"+ result);
+                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 /*
                 new Thread(new Runnable() {
 
