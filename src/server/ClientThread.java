@@ -28,15 +28,15 @@ public class ClientThread implements Runnable{
     
     private Socket clientSocket = null;
     private String inputLine;
-    private ExecutorService myThreadPool ;
+    //private ExecutorService myThreadPool;
     
     private final Logger LOGGER =
         Logger.getLogger(MultiThreadedTCPServer.class.getName());
     
     
-    public ClientThread(Socket clientSocket,ExecutorService tPool) {
+    public ClientThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
-        this.myThreadPool = tPool;
+        //this.myThreadPool = tPool;
         try {
             this.clientSocket.setSoTimeout(1000);
         }catch (SocketException ex) {
