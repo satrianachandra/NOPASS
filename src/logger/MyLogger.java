@@ -21,7 +21,7 @@ public class MyLogger {
     static private FileHandler fileTxt;
     static private SimpleFormatter formatterTxt;
     
-    static Logger rootLogger = Logger.getLogger("");
+    static final Logger rootLogger = Logger.getLogger("");
     static public void setup() throws IOException {    
         // suppress the logging output to the console
     //    Handler[] handlers = rootLogger.getHandlers();
