@@ -46,7 +46,7 @@ public class ClientThread implements Runnable{
         
     @Override
     public void run() {
-        LOGGER.entering(getClass().getName(), "run()");
+        //LOGGER.entering(getClass().getName(), "run()");
         
         try {
             BufferedReader in = new BufferedReader(
@@ -68,7 +68,8 @@ public class ClientThread implements Runnable{
                 });
                 */
                 long result = Actions.fibonacciLoop(Long.decode(inputLine));
-                LOGGER.log(Level.INFO, "Fibo result:{0}", result);
+                System.out.println("Fibo result:"+ result);
+                //LOGGER.log(Level.INFO, "Fibo result:{0}", result);
                 /*
                 new Thread(new Runnable() {
 
@@ -104,7 +105,7 @@ public class ClientThread implements Runnable{
         }).start();*/
         //computation.processNumber(1000000000L);
         //Computation.queue.offer(1000000000L);
-        LOGGER.exiting(getClass().getName(), "run()");
+        //LOGGER.exiting(getClass().getName(), "run()");
     }
     
     //testing git upstart

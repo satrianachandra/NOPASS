@@ -24,10 +24,10 @@ public class MyLogger {
     static Logger rootLogger = Logger.getLogger("");
     static public void setup() throws IOException {    
         // suppress the logging output to the console
-        Handler[] handlers = rootLogger.getHandlers();
-        if (handlers[0] instanceof ConsoleHandler) {
-          rootLogger.removeHandler(handlers[0]);
-        }
+    //    Handler[] handlers = rootLogger.getHandlers();
+    //    if (handlers[0] instanceof ConsoleHandler) {
+    //      rootLogger.removeHandler(handlers[0]);
+    //    }
 
         fileTxt = new FileHandler("TCPServerLog");
         formatterTxt = new SimpleFormatter();
