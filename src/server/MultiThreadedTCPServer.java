@@ -5,7 +5,7 @@
  */
 package server;
 
-import computation.Computation;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -115,18 +115,19 @@ public class MultiThreadedTCPServer implements Runnable{
     }
 
     public static void main(String[] args){
+        /*
         try {
               MyLogger.setup();
             } catch (IOException ex) {
                 LOGGER.log(Level.SEVERE, "Cannot Open file", ex);
         }
-        
+        */
         int sizeOfTPool=10;
         if (args.length == 0){
             throw new IllegalArgumentException("Must specify a port!");
 	}else if (args.length>=2){
             String level = args[1];
-            MyLogger.setLevel(Integer.decode(level));
+            //MyLogger.setLevel(Integer.decode(level));
             sizeOfTPool = Integer.decode(args[2]);
         }
         

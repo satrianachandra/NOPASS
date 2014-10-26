@@ -18,6 +18,8 @@ import java.util.logging.SimpleFormatter;
  * @author chandra
  */
 public class MyLogger {
+    
+    /*
     static private FileHandler fileTxt;
     static private SimpleFormatter formatterTxt;
     
@@ -57,5 +59,6 @@ public class MyLogger {
                 break;
         }
     }
+    */
     
 }
