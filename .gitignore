@@ -1,1 +1,6 @@
-/build/
+# Compiled source #
+###################
+*.class
+# Logs and databases #
+*.log
+/dist/

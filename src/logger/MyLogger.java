@@ -29,7 +29,7 @@ public class MyLogger {
     //      rootLogger.removeHandler(handlers[0]);
     //    }
 
-        fileTxt = new FileHandler("TCPServerLog");
+        fileTxt = new FileHandler("TCPServerLog.log");
         formatterTxt = new SimpleFormatter();
         fileTxt.setFormatter(formatterTxt);
 
