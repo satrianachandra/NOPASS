@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,11 +31,16 @@ public class ClientThread implements Runnable{
     public ClientThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
         //this.myThreadPool = tPool;
-        //try {
-        //    this.clientSocket.setSoTimeout(5000);
-        //}catch (SocketException ex) {
-        //    Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-       // }
+        try {
+            this.clientSocket.setSoTimeout(1000);
+        }catch (SocketException ex) {
+            try {
+                clientSocket.close();
+            } catch (IOException ex1) {
+                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
         
     @Override
