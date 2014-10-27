@@ -32,7 +32,7 @@ public class ClientThread implements Runnable{
         this.clientSocket = clientSocket;
         //this.myThreadPool = tPool;
         try {
-            this.clientSocket.setSoTimeout(1000);
+            this.clientSocket.setSoTimeout(5000);
         }catch (SocketException ex) {
             try {
                 clientSocket.close();
